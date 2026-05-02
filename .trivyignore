@@ -1,0 +1,5 @@
+# Suppress CVEs that have no upstream fix available in eclipse-temurin:17-jre-jammy.
+# Review this file when the base image is updated.
+#
+# Format:
+# CVE-XXXX-XXXXX  -- reason

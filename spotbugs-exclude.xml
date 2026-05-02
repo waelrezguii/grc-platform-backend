@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+
+    <!--
+        ══════════════════════════════════════════════════════════════════
+        SPRING REST ENDPOINTS — informational only, not exploitable
+        SpotBugs/FindSecBugs flags every @GetMapping / @PostMapping as
+        a "Spring endpoint" potential entry point. These are intentional
+        REST API endpoints protected by Spring Security.
+        ══════════════════════════════════════════════════════════════════
+    -->
+    <Match>
+        <Bug pattern="SPRING_ENDPOINT"/>
+    </Match>
+
+    <!--
+        ══════════════════════════════════════════════════════════════════
+        CSRF — disabled intentionally
+        This is a stateless JWT API consumed by an Angular SPA.
+        CSRF does not apply to token-authenticated stateless APIs.
+        ══════════════════════════════════════════════════════════════════
+    -->
+    <Match>
+        <Bug pattern="SPRING_CSRF_PROTECTION_DISABLED"/>
+    </Match>
+
+    <!--
+        ══════════════════════════════════════════════════════════════════
+        IMPROPER_UNICODE — false positive for standard String operations
+        FindSecBugs flags Unicode normalization warnings on standard
+        string comparison/trim calls. No user-controlled Unicode input
+        flows through these paths.
+        ══════════════════════════════════════════════════════════════════
+    -->
+    <Match>
+        <Bug pattern="IMPROPER_UNICODE"/>
+    </Match>
+
+    <!--
+        ══════════════════════════════════════════════════════════════════
+        CRLF_INJECTION_LOGS (Low severity) — internal/system values only
+        The remaining Low-severity CRLF flags are on log statements that
+        log internal enum values, system-generated IDs, or exception
+        messages — not raw user input. Medium-severity instances in
+        CveImportService and RiskReportService have been fixed with
+        newline sanitization.
+        ══════════════════════════════════════════════════════════════════
+    -->
+    <Match>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+        <Confidence value="3"/>
+    </Match>
+
+    <!--
+        ══════════════════════════════════════════════════════════════════
+        CRLF_INJECTION_LOGS — RiskReportService regeneration error log
+        The id parameter is sanitized via .replaceAll("[\r\n]", "_")
+        before logging. FindSecBugs taint analysis does not recognize
+        replaceAll() as a CRLF sanitizer — confirmed false positive.
+        ══════════════════════════════════════════════════════════════════
+    -->
+    <Match>
+        <Class name="com.project.grcplatform.service.RiskReportService"/>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+    </Match>
+
+
+    <!--
+        ══════════════════════════════════════════════════════════════════
+        EI_EXPOSE_REP / EI_EXPOSE_REP2 — false positives across the codebase
+
+        FindSecBugs 1.13.0 reclassifies these MALICIOUS_CODE bugs under
+        CORRECTNESS, causing them to pass the include filter.
+
+        Suppressed globally because defensive copying is incorrect in all
+        three contexts where these warnings fire:
+
+        1. JPA entities (model/): Hibernate manages the object lifecycle
+           through the persistence context. Defensively copying an entity
+           reference detaches it from the session, breaking lazy loading,
+           dirty checking, and cascading — it would corrupt the ORM.
+
+        2. DTOs (dto/): Short-lived data transfer objects assembled in the
+           service layer and immediately serialised to JSON. No shared
+           mutable state; defensive copying adds allocations with no gain.
+
+        3. Spring beans (controller/, service/, scheduler/, scanner/):
+           Dependencies are Spring-managed singletons injected by the DI
+           container. Copying a singleton bean reference is meaningless;
+           the reference and the copy point to the same object.
+        ══════════════════════════════════════════════════════════════════
+    -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+</FindBugsFilter>

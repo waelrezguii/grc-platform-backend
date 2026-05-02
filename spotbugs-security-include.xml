@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SpotBugs include filter — controls which bug patterns are reported.
+
+    We scan the SECURITY category broadly (all FindSecBugs security rules),
+    plus a hand-picked list of CORRECTNESS patterns that represent real
+    vulnerabilities in this codebase.
+
+    We do NOT include the CORRECTNESS category as a whole because
+    FindSecBugs 1.13.0 reclassifies EI_EXPOSE_REP / EI_EXPOSE_REP2 from
+    MALICIOUS_CODE to CORRECTNESS.  Those 700+ warnings are false positives
+    in JPA entities, DTOs, and Spring singleton beans — defensive copying is
+    architecturally incorrect in all three contexts.  Including CORRECTNESS
+    wholesale would require suppressing every class individually.
+-->
+<FindBugsFilter>
+    <!-- All FindSecBugs security rules -->
+    <Match>
+        <Bug category="SECURITY"/>
+    </Match>
+
+    <!-- Specific CORRECTNESS patterns that are genuine vulnerabilities -->
+    <Match>
+        <Bug pattern="PATH_TRAVERSAL_IN"/>
+    </Match>
+    <Match>
+        <Bug pattern="PATH_TRAVERSAL_ABSOLUTE"/>
+    </Match>
+    <Match>
+        <Bug pattern="UNSAFE_HASH_EQUALS"/>
+    </Match>
+    <Match>
+        <Bug pattern="XXE_DOCUMENT"/>
+    </Match>
+    <Match>
+        <Bug pattern="XXE_SAXPARSER"/>
+    </Match>
+    <Match>
+        <Bug pattern="XXE_XMLREADER"/>
+    </Match>
+    <Match>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+    </Match>
+    <Match>
+        <Bug pattern="SQL_INJECTION"/>
+    </Match>
+    <Match>
+        <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
+    </Match>
+    <Match>
+        <Bug pattern="COMMAND_INJECTION"/>
+    </Match>
+</FindBugsFilter>

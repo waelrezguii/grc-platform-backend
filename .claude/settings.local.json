@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -rn \";\\\\n@Entity\\\\|;\\\\r\\\\n@Entity\" \"D:/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model/\" 2>/dev/null || grep -Pzl \";\\\\n@Entity\" \"D:/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model/\"*.java 2>/dev/null; echo \"done\")",
+      "Bash(cd /d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model && grep -l \"import.*;\" *.java | xargs -I{} sh -c 'grep -Pzo \"import [^\\\\n]+;\\\\n@\" \"{}\" > /dev/null 2>&1 && echo \"{}\"' 2>/dev/null; echo done)",
+      "Bash(cd \"/d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model\" && grep -l \"\" *.java | while read f; do\n  if grep -qP \";\\\\n@\" \"$f\" 2>/dev/null; then echo \"$f\"; fi\ndone; echo \"scan complete\")",
+      "Bash(cd \"/d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model\" && for f in Threat.java ThreatHistory.java TreatmentPlan.java RiskScenarioHistory.java RiskAssessmentScenario.java RiskAssessment.java RiskAssessmentHistory.java Vulnerability.java VulnerabilityHistory.java TreatmentAction.java Control.java ControlHistory.java AssetHistory.java RiskReport.java AuditLog.java Notification.java KriHistory.java GovernancePolicy.java GovernancePolicyHistory.java GovernanceResponsibility.java GovernanceResponsibilityHistory.java GovernanceDocument.java GovernanceDocumentHistory.java ComplianceFramework.java ComplianceFrameworkHistory.java ComplianceRequirement.java ComplianceEvaluation.java ComplianceEvaluationHistory.java ComplianceEvaluationItem.java ComplianceActionPlan.java; do\n  sed -i 's/^import java\\\\.time\\\\.LocalDateTime;$/import java.time.LocalDateTime;\\\\n/' \"$f\" 2>/dev/null\n  sed -i 's/^import java\\\\.util\\\\.Map;$/import java.util.Map;\\\\n/' \"$f\" 2>/dev/null\n  sed -i 's/^import java\\\\.time\\\\.LocalDate;$/import java.time.LocalDate;\\\\n/' \"$f\" 2>/dev/null\n  sed -i 's/^import java\\\\.math\\\\.BigDecimal;$/import java.math.BigDecimal;\\\\n/' \"$f\" 2>/dev/null\ndone; echo \"done\")",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -c \"\nimport json\nwith open\\(r'C:\\\\Users\\\\Ahmed\\\\.claude\\\\projects\\\\D--intellij-grcprjt\\\\a42a23c5-e728-42ed-9c74-537e0b2c2eec\\\\tool-results\\\\toolu_01ENMT5ZgLT8aHPDw4pQ7qjo.txt', 'r', encoding='utf-8'\\) as f:\n    data = json.load\\(f\\)\nprint\\(data[0]['text']\\)\n\")",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//d/intellij/grcprjt/**)",
+      "Bash(done)",
+      "Bash(do)",
+      "Bash(echo \"=== model/$f.java ===\")",
+      "Read(//d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model/**)",
+      "Bash(find . -name \"*.java\" -exec grep -l \"OrderByChangedAtDesc\" {})",
+      "Bash(xargs sed:*)",
+      "Bash(grep -l \"enum\\\\|SUPER\\\\|ADMIN\\\\|AUDITOR\\\\|RSSI\" /d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/constant/*.java)",
+      "Bash(grep -l \"extends AuditableEntity\\\\|extends SoftDeleteEntity\" /d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/model/*.java)",
+      "Bash(ls /d/intellij/grcprjt/src/main/java/com/deloitte/riskmanagement/dto/*.java)",
+      "Bash(./mvnw clean:*)",
+      "Bash(xargs grep *)",
+      "Bash(git *)",
+      "Bash(./mvnw spotbugs:check -q)",
+      "Bash(./mvnw compile *)",
+      "Bash(java *)",
+      "Bash(cp -r src/main/java/com/deloitte/riskmanagement/. src/main/java/com/project/grcplatform/)",
+      "Bash(mkdir -p src/test/java/com/project/grcplatform)",
+      "Bash(cp -r src/test/java/com/deloitte/riskmanagement/. src/test/java/com/project/grcplatform/)",
+      "Bash(mkdir -p src/main/java/com/project/grcplatform)",
+      "Bash(sed -i 's/Deloitte/[Company]/gi' CLAUDE.md)",
+      "Bash(sed -i 's|com/deloitte/riskmanagement|com/project/grcplatform|g' CLAUDE.md)",
+      "Bash(sed -i 's/<artifactId>risk-management-be<\\\\/artifactId>/<artifactId>grc-platform-backend<\\\\/artifactId>/' pom.xml)",
+      "Bash(sed -i 's/<name>grcprjt<\\\\/name>/<name>grc-platform-backend<\\\\/name>/' pom.xml)",
+      "Bash(sed -i 's/<description>Demo project for Spring Boot<\\\\/description>/<description>GRC Platform Backend - Governance, Risk \\\\&amp; Compliance Management System<\\\\/description>/' pom.xml)"
+    ]
+  }
+}

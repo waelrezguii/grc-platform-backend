@@ -1,0 +1,16 @@
+package com.project.grcplatform.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResponsibilityTypeDTO {
+    private String id;
+    private String name;
+    private String description;
+}
