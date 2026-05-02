@@ -40,3 +40,6 @@ src/main/resources/application-secrets.properties
 
 ### Docker / Trivy ###
 trivy-report.html
+
+# Claude Code local settings
+.claude/
